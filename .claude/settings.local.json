@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/yusuke/.local/bin/**)",
+      "Bash(npm list:*)",
+      "Bash(npm --version)",
+      "Bash(pnpm --version)",
+      "Bash(npx tsp:*)",
+      "Bash(rm -rf node_modules)",
+      "Bash(npm install:*)",
+      "Bash(pnpm install:*)"
+    ]
+  }
+}
