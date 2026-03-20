@@ -4,5 +4,9 @@
     "editor.defaultFormatter": "Shopify.ruby-lsp",
     "editor.formatOnSave": true
   },
+  "[typespec]": {
+    "editor.defaultFormatter": "typespec.typespec-vscode",
+    "editor.formatOnSave": true
+  },
   "rubyLsp.bundleGemfile": "backend/Gemfile"
 }
