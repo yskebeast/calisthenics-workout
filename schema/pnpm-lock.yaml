@@ -23,6 +23,9 @@ importers:
       '@typespec/rest':
         specifier: latest
         version: 0.80.0(@typespec/compiler@1.10.0)(@typespec/http@1.10.0(@typespec/compiler@1.10.0))
+      yaml:
+        specifier: ^2.8.2
+        version: 2.8.2
 
 packages:
 

@@ -1,12 +1,12 @@
 openapi: 3.1.0
 info:
-  title: Widget Service
+  title: Calisthenics Workout
   version: 0.0.0
 tags: []
 paths:
-  /test:
+  /sample:
     get:
-      operationId: test
+      operationId: sample
       parameters: []
       responses:
         '200':
@@ -14,25 +14,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Test'
+                $ref: '#/components/schemas/SampleModel.Sample'
 components:
   schemas:
-    Test:
+    SampleModel.Language:
+      type: string
+      enum:
+        - python
+        - typescript
+        - ruby
+    SampleModel.Pref:
+      type: string
+      enum:
+        - tokyo
+        - osaka
+        - kyoto
+    SampleModel.Sample:
       type: object
       required:
         - id
         - name
         - language
+        - preference
       properties:
         id:
           type: string
         name:
           type: string
         language:
-          $ref: '#/components/schemas/TestEnum'
-    TestEnum:
-      type: string
-      enum:
-        - python
-        - typescript
-        - ruby
+          $ref: '#/components/schemas/SampleModel.Language'
+        preference:
+          $ref: '#/components/schemas/SampleModel.Pref'
