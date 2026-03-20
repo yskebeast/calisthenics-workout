@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "compile": "npx tsp compile ."
+    "compile": "npx tsp compile ./src/main.tsp"
   },
   "dependencies": {
     "@typespec/compiler": "latest",
