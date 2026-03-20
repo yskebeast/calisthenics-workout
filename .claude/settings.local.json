@@ -9,7 +9,11 @@
       "Bash(npx tsp:*)",
       "Bash(rm -rf node_modules)",
       "Bash(npm install:*)",
-      "Bash(pnpm install:*)"
+      "Bash(pnpm install:*)",
+      "Bash(node:*)",
+      "Bash(pnpm add:*)",
+      "Skill(update-config)",
+      "Bash(bundle exec:*)"
     ]
   }
 }
