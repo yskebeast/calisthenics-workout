@@ -13,7 +13,9 @@
       "Bash(node:*)",
       "Bash(pnpm add:*)",
       "Skill(update-config)",
-      "Bash(bundle exec:*)"
-    ]
+      "Bash(bundle exec:*)",
+      "Bash(head:*)"
+    ],
+    "deny": ["Bash(sudo:*)"]
   }
 }
