@@ -1,1 +1,1 @@
-# yskebeast-calisthenics-workout
+# calisthenics-workout
