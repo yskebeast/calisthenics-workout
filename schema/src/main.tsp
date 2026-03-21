@@ -1,14 +1,13 @@
-import "../src/models/sample.tsp";
+import "../src/routes/user_profile.tsp";
 
 import "@typespec/http";
 
 using Http;
 @service(#{ title: "Calisthenics Workout" })
 namespace CalisthenicsWorkout {
-  @route("/sample")
-  @get
-  op sample(): {
-    @statusCode statusCode: 200;
-    @body data: SampleModel.Sample;
-  };
+  @route("/api/v1")
+  namespace V1 {
+    @route("/user_profile")
+    interface UserProfile extends UserProfileRoutes {}
+  }
 }
