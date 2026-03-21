@@ -7,8 +7,11 @@
 import type {
   UserProfileCreate422,
   UserProfileModelCreateUserProfileRequest,
+  UserProfileModelUpdateUserProfileRequest,
   UserProfileModelUserProfile,
-  UserProfileShow404
+  UserProfileShow404,
+  UserProfileUpdate404,
+  UserProfileUpdate422
 } from '../calisthenicsWorkout.schemas';
 
 
@@ -100,6 +103,57 @@ export const userProfileCreate = async (userProfileModelCreateUserProfileRequest
   
   const data: userProfileCreateResponse['data'] = body ? JSON.parse(body) : {}
   return { data, status: res.status, headers: res.headers } as userProfileCreateResponse
+}
+  
+
+export type userProfileUpdateResponse200 = {
+  data: UserProfileModelUserProfile
+  status: 200
+}
+
+export type userProfileUpdateResponse404 = {
+  data: UserProfileUpdate404
+  status: 404
+}
+
+export type userProfileUpdateResponse422 = {
+  data: UserProfileUpdate422
+  status: 422
+}
+
+export type userProfileUpdateResponseSuccess = (userProfileUpdateResponse200) & {
+  headers: Headers;
+};
+export type userProfileUpdateResponseError = (userProfileUpdateResponse404 | userProfileUpdateResponse422) & {
+  headers: Headers;
+};
+
+export type userProfileUpdateResponse = (userProfileUpdateResponseSuccess | userProfileUpdateResponseError)
+
+export const getUserProfileUpdateUrl = () => {
+
+
+  
+
+  return `/api/v1/user_profile`
+}
+
+export const userProfileUpdate = async (userProfileModelUpdateUserProfileRequest: UserProfileModelUpdateUserProfileRequest, options?: RequestInit): Promise<userProfileUpdateResponse> => {
+  
+  const res = await fetch(getUserProfileUpdateUrl(),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      userProfileModelUpdateUserProfileRequest,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: userProfileUpdateResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as userProfileUpdateResponse
 }
   
 

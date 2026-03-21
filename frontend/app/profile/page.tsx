@@ -2,7 +2,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getUserProfile } from "@/lib/rails-api";
-import SignOutButton from "@/app/mypage/SignOutButton";
+import Link from "next/link";
 
 const BACKEND_URL = `http://localhost:${process.env.BACKEND_PORT ?? 3001}`;
 
@@ -58,7 +58,14 @@ export default async function ProfilePage() {
           </div>
         </dl>
 
-        <SignOutButton />
+        <div className="mt-6">
+          <Link
+            href="/profile/edit"
+            className="block w-full rounded-full bg-zinc-900 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+          >
+            編集
+          </Link>
+        </div>
       </div>
     </div>
   );
