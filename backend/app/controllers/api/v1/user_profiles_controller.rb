@@ -1,6 +1,12 @@
 module Api
   module V1
     class UserProfilesController < ApplicationController
+      before_action :set_profile, only: [ :show, :update ]
+
+      def show
+        render json: profile_json(@profile)
+      end
+
       def create
         profile = UserProfile.new(profile_params.merge(better_auth_user_id: @current_user_id))
         if profile.save
@@ -10,7 +16,22 @@ module Api
         end
       end
 
+      def update
+        if @profile.update(profile_params)
+          render json: profile_json(@profile)
+        else
+          render json: { errors: @profile.errors.full_messages }, status: :unprocessable_entity
+        end
+      end
+
       private
+
+        def set_profile
+          @profile = UserProfile.find_by(better_auth_user_id: @current_user_id)
+          unless @profile
+            render json: { error: "Not found" }, status: :not_found
+          end
+        end
 
         def profile_params
           params.require(:user_profile).permit(:last_name, :first_name, :height, :weight, :date_of_birth, :avatar)
