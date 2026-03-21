@@ -1,14 +1,17 @@
 import {
   getUserProfileShowUrl,
   getUserProfileCreateUrl,
+  getUserProfileUpdateUrl,
 } from "@/lib/api/default/default";
 import type {
   UserProfileModelUserProfile,
   UserProfileModelCreateUserProfileRequest,
+  UserProfileModelUpdateUserProfileRequest,
 } from "@/lib/api/calisthenicsWorkout.schemas";
 
 export type { UserProfileModelUserProfile as UserProfile };
 export type { UserProfileModelCreateUserProfileRequest as CreateUserProfileRequest };
+export type { UserProfileModelUpdateUserProfileRequest as UpdateUserProfileRequest };
 
 const BACKEND_URL = `http://localhost:${process.env.BACKEND_PORT ?? 3001}`;
 
@@ -52,6 +55,31 @@ export async function createUserProfile(
   if (!res.ok) {
     const body = await res.json();
     throw new Error(body.errors?.join(", ") ?? "Failed to create user profile");
+  }
+  return res.json();
+}
+
+export async function updateUserProfile(
+  userId: string,
+  data: UserProfileModelUpdateUserProfileRequest,
+  avatar?: File,
+): Promise<UserProfileModelUserProfile> {
+  const formData = new FormData();
+  if (data.last_name) formData.append("user_profile[last_name]", data.last_name);
+  if (data.first_name) formData.append("user_profile[first_name]", data.first_name);
+  if (data.height != null) formData.append("user_profile[height]", String(data.height));
+  if (data.weight != null) formData.append("user_profile[weight]", String(data.weight));
+  if (data.date_of_birth) formData.append("user_profile[date_of_birth]", data.date_of_birth);
+  if (avatar) formData.append("user_profile[avatar]", avatar);
+
+  const res = await fetch(`${BACKEND_URL}${getUserProfileUpdateUrl()}`, {
+    method: "PATCH",
+    headers: internalHeaders(userId),
+    body: formData,
+  });
+  if (!res.ok) {
+    const body = await res.json();
+    throw new Error(body.errors?.join(", ") ?? "Failed to update user profile");
   }
   return res.json();
 }

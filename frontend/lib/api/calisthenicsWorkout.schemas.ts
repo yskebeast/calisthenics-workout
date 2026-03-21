@@ -13,6 +13,15 @@ export interface UserProfileModelCreateUserProfileRequest {
   avatar?: string;
 }
 
+export interface UserProfileModelUpdateUserProfileRequest {
+  last_name?: string;
+  first_name?: string;
+  height?: number;
+  weight?: number;
+  date_of_birth?: string;
+  avatar?: string;
+}
+
 export interface UserProfileModelUserProfile {
   id: number;
   better_auth_user_id: string;
@@ -33,6 +42,14 @@ export type UserProfileShow404 = {
 };
 
 export type UserProfileCreate422 = {
+  errors: string[];
+};
+
+export type UserProfileUpdate404 = {
+  error: string;
+};
+
+export type UserProfileUpdate422 = {
   errors: string[];
 };
 

@@ -2,7 +2,9 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import {
   createUserProfile,
+  updateUserProfile,
   type CreateUserProfileRequest,
+  type UpdateUserProfileRequest,
 } from "@/lib/rails-api";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -35,6 +37,43 @@ export async function POST(req: NextRequest) {
       avatar instanceof File && avatar.size > 0 ? avatar : undefined,
     );
     return NextResponse.json(profile, { status: 201 });
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 422 });
+  }
+}
+
+export async function PATCH(req: NextRequest) {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const formData = await req.formData();
+
+  const body: UpdateUserProfileRequest = {};
+
+  const last_name = formData.get("last_name");
+  if (last_name) body.last_name = last_name as string;
+
+  const first_name = formData.get("first_name");
+  if (first_name) body.first_name = first_name as string;
+
+  const height = formData.get("height");
+  if (height) body.height = Number(height);
+
+  const weight = formData.get("weight");
+  if (weight) body.weight = Number(weight);
+
+  const date_of_birth = formData.get("date_of_birth");
+  if (date_of_birth) body.date_of_birth = date_of_birth as string;
+
+  const avatar = formData.get("avatar");
+
+  try {
+    const profile = await updateUserProfile(
+      session.user.id,
+      body,
+      avatar instanceof File && avatar.size > 0 ? avatar : undefined,
+    );
+    return NextResponse.json(profile);
   } catch (e) {
     return NextResponse.json({ error: (e as Error).message }, { status: 422 });
   }

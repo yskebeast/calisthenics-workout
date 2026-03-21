@@ -18,4 +18,13 @@ namespace UserProfileModel {
     date_of_birth?: plainDate;
     avatar?: bytes;
   }
+
+  model UpdateUserProfileRequest {
+    last_name?: string;
+    first_name?: string;
+    height?: int32;
+    weight?: float32;
+    date_of_birth?: plainDate;
+    avatar?: bytes;
+  }
 }
