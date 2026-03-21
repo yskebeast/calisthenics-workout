@@ -22,4 +22,18 @@ interface UserProfileRoutes {
     @statusCode statusCode: 422;
     @body error: { errors: string[] };
   };
+
+  @patch
+  update(
+    @body body: UserProfileModel.UpdateUserProfileRequest,
+  ): {
+    @statusCode statusCode: 200;
+    @body data: UserProfileModel.UserProfile;
+  } | {
+    @statusCode statusCode: 404;
+    @body error: { error: string };
+  } | {
+    @statusCode statusCode: 422;
+    @body error: { errors: string[] };
+  };
 }

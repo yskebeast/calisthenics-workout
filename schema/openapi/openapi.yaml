@@ -55,6 +55,46 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UserProfileModel.CreateUserProfileRequest'
+    patch:
+      operationId: UserProfile_update
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileModel.UserProfile'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+        '422':
+          description: Client error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                required:
+                  - errors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileModel.UpdateUserProfileRequest'
 components:
   schemas:
     UserProfileModel.CreateUserProfileRequest:
@@ -62,6 +102,25 @@ components:
       required:
         - last_name
         - first_name
+      properties:
+        last_name:
+          type: string
+        first_name:
+          type: string
+        height:
+          type: integer
+          format: int32
+        weight:
+          type: number
+          format: float
+        date_of_birth:
+          type: string
+          format: date
+        avatar:
+          type: string
+          format: byte
+    UserProfileModel.UpdateUserProfileRequest:
+      type: object
       properties:
         last_name:
           type: string
