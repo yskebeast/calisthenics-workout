@@ -27,9 +27,9 @@ bin/rails test test/models/user_test.rb  # single test file
 
 ```bash
 cd frontend/
-npm install
-npm run dev
-npm run lint
+pnpm install
+pnpm dev
+pnpm lint
 ```
 
 ### Schema
