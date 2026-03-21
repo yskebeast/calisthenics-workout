@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const protectedRoutes = ["/mypage"];
+const publicRoutes = ["/signin", "/"];
 
 export default function proxy(req: NextRequest) {
   const path = req.nextUrl.pathname;
-  const isProtectedRoute = protectedRoutes.some((r) => path.startsWith(r));
+  const isPublicRoute = publicRoutes.some((r) => path === r);
 
-  if (isProtectedRoute) {
+  if (!isPublicRoute) {
     const session = req.cookies.get("better-auth.session_token");
     if (!session) {
       return NextResponse.redirect(new URL("/signin", req.nextUrl));

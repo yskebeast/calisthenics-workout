@@ -27,7 +27,7 @@ export default function SignInPage() {
       if (error) {
         setError(error.message ?? "登録に失敗しました");
       } else {
-        router.push("/mypage");
+        router.push("/onboarding");
       }
     } else {
       const { error } = await authClient.signIn.email({ email, password });
