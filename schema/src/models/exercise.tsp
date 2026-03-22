@@ -14,6 +14,7 @@ namespace ExerciseModel {
     category: ExerciseCategory;
     description: string | null;
     image_url: string | null;
+    is_custom: boolean;
   }
 
   model CreateExerciseRequest {
