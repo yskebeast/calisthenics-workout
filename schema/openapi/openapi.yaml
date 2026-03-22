@@ -4,9 +4,113 @@ info:
   version: 0.0.0
 tags: []
 paths:
+  /api/v1/exercises:
+    get:
+      operationId: Exercises_list
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExerciseModel.Exercise'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+    post:
+      operationId: Exercises_create
+      parameters: []
+      responses:
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExerciseModel.Exercise'
+        '422':
+          description: Client error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                required:
+                  - errors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExerciseModel.CreateExerciseRequest'
+  /api/v1/exercises/{id}:
+    get:
+      operationId: Exercises_get
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExerciseModel.Exercise'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+    delete:
+      operationId: Exercises_delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
   /api/v1/user_profile:
     get:
-      operationId: UserProfile_show
+      operationId: UserProfile_get
       parameters: []
       responses:
         '200':
@@ -97,6 +201,52 @@ paths:
               $ref: '#/components/schemas/UserProfileModel.UpdateUserProfileRequest'
 components:
   schemas:
+    ExerciseModel.CreateExerciseRequest:
+      type: object
+      required:
+        - name
+        - category
+      properties:
+        name:
+          type: string
+        category:
+          $ref: '#/components/schemas/ExerciseModel.ExerciseCategory'
+        description:
+          type: string
+        image_url:
+          type: string
+          format: byte
+    ExerciseModel.Exercise:
+      type: object
+      required:
+        - id
+        - name
+        - category
+        - description
+        - image_url
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        category:
+          $ref: '#/components/schemas/ExerciseModel.ExerciseCategory'
+        description:
+          type: string
+          nullable: true
+        image_url:
+          type: string
+          nullable: true
+    ExerciseModel.ExerciseCategory:
+      type: string
+      enum:
+        - pull
+        - push
+        - legs
+        - core
+        - full_body
+        - other
     UserProfileModel.CreateUserProfileRequest:
       type: object
       required:

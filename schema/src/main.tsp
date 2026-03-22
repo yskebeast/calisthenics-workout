@@ -1,4 +1,5 @@
-import "../src/routes/user_profile.tsp";
+import "./routes/user_profile.tsp";
+import "./routes/exercise.tsp";
 
 import "@typespec/http";
 
@@ -9,5 +10,8 @@ namespace CalisthenicsWorkout {
   namespace V1 {
     @route("/user_profile")
     interface UserProfile extends UserProfileRoutes {}
+
+    @route("/exercises")
+    interface Exercises extends ExerciseRoutes {}
   }
 }

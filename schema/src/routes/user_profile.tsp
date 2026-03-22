@@ -4,36 +4,40 @@ using Http;
 
 interface UserProfileRoutes {
   @get
-  show(): {
+  get(): {
     @statusCode statusCode: 200;
     @body data: UserProfileModel.UserProfile;
   } | {
     @statusCode statusCode: 404;
-    @body error: { error: string };
+    @body error: {
+      error: string;
+    };
   };
 
   @post
-  create(
-    @body body: UserProfileModel.CreateUserProfileRequest,
-  ): {
+  create(@body body: UserProfileModel.CreateUserProfileRequest): {
     @statusCode statusCode: 201;
     @body data: UserProfileModel.UserProfile;
   } | {
     @statusCode statusCode: 422;
-    @body error: { errors: string[] };
+    @body error: {
+      errors: string[];
+    };
   };
 
   @patch
-  update(
-    @body body: UserProfileModel.UpdateUserProfileRequest,
-  ): {
+  update(@body body: UserProfileModel.UpdateUserProfileRequest): {
     @statusCode statusCode: 200;
     @body data: UserProfileModel.UserProfile;
   } | {
     @statusCode statusCode: 404;
-    @body error: { error: string };
+    @body error: {
+      error: string;
+    };
   } | {
     @statusCode statusCode: 422;
-    @body error: { errors: string[] };
+    @body error: {
+      errors: string[];
+    };
   };
 }

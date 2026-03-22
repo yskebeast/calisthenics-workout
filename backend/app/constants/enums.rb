@@ -4,8 +4,8 @@
 # Do NOT edit manually. Run `pnpm generate:enums` in schema/
 
 module Enums
-  module SampleModel
-    LANGUAGE = { python: "python", typescript: "typescript", ruby: "ruby" }.freeze
-    PREF = { tokyo: "tokyo", osaka: "osaka", kyoto: "kyoto" }.freeze
+  module ExerciseModel
+    EXERCISE_CATEGORY = { pull: "pull", push: "push", legs: "legs", core: "core", full_body: "full_body", other: "other" }.freeze
   end
+
 end
