@@ -224,6 +224,7 @@ components:
         - category
         - description
         - image_url
+        - is_custom
       properties:
         id:
           type: integer
@@ -238,6 +239,8 @@ components:
         image_url:
           type: string
           nullable: true
+        is_custom:
+          type: boolean
     ExerciseModel.ExerciseCategory:
       type: string
       enum:
