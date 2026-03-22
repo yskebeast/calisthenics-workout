@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getUserProfile } from "@/lib/rails-api";
 import { EditProfileForm } from "./EditProfileForm";
+import Link from "next/link";
 
 export default async function EditProfilePage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -18,6 +19,14 @@ export default async function EditProfilePage() {
           プロフィール編集
         </h1>
         <EditProfileForm profile={profile} />
+        <div className="mt-4 border-t border-zinc-100 pt-4 dark:border-zinc-800">
+          <Link
+            href="/profile/edit/password"
+            className="text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
+          >
+            パスワードを変更する →
+          </Link>
+        </div>
       </div>
     </div>
   );
